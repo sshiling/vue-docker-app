@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - /app/node_modules # placeholder for node_modules inside the container (not to override it with the volume mapping below)
+      - .:/app # mapping from present working directory to the container app directory
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+    - /app/node_modules
+    - .:/app
+    command: ["npm", "run", "test:unit"]

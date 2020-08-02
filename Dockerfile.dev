@@ -1,0 +1,12 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+# We can remove this copy command because of resourses mapping in docker-compose
+# But it's good practice to leave it here as a reminder in future updates
+COPY . .
+
+CMD ["npm", "run", "serve"]
